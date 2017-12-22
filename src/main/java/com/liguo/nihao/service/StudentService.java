@@ -41,4 +41,8 @@ public class StudentService {
         Pageable pageable=new PageRequest(page,size, Sort.Direction.ASC, "id");
         return studentRepository.findAll(pageable);
     }
+    //根据年龄查找
+    public List<Student> seleteByAge(int age){
+        return studentRepository.findByAge(age);
+    }
 }

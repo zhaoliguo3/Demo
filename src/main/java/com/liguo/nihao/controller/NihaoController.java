@@ -1,6 +1,7 @@
 package com.liguo.nihao.controller;
 
 import com.liguo.nihao.dao.ResultResponse;
+import com.liguo.nihao.domain.Page;
 import com.liguo.nihao.domain.Student;
 import com.liguo.nihao.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +58,17 @@ public class NihaoController {
     }
 
     @PostMapping("/page")
-    public ResultResponse<List<Student>> seleteStudentByPage(@RequestParam("page")int page,
+    public ResultResponse<Page> seleteStudentByPage(@RequestParam("page")int page,
                                     @RequestParam("size")int size){
        // return studentService.seleteByPage(page,size);
-        return new ResultResponse<List<Student>>(200,"分页查询",studentService.seleteByPage(page,size).getContent());
+       // return new ResultResponse<List<Student>>(200,"分页查询",studentService.seleteByPage(page,size).getContent());
+        Page page1=new Page(page,size,studentService.seleteByPage(page,size).getContent());
+        return new ResultResponse<Page>(200,"分页查询",page1);
+    }
+
+    @PutMapping("/age/{age}")
+    public ResultResponse<List<Student>> seleteStudentByAge(@PathVariable int age){
+        return new ResultResponse<List<Student>>(200,"根据年龄查询学生",studentService.seleteByAge(age));
     }
 
 
